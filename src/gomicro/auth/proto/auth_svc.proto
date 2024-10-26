@@ -1,0 +1,26 @@
+syntax = "proto3";
+option go_package = "github.co/amyrd/gomicro/auth/proto/pb";
+
+
+service AuthService{
+// remote procedure call, define a func or method that one service can call remotely on another service
+// client needs to pass Credentials and this will return Token
+  rpc GetToken(Credentials) returns (Token) {}
+
+  rpc ValidateToken(Token) returns (User) {}
+
+}
+// now we need to create the things we defined up top
+message Token {
+  string jwt = 1;
+}
+
+// what we are expecting to recieve
+message Credentials {
+  string userName = 1;
+  string password = 2;
+}
+
+message User {
+  string userId = 1;
+}
